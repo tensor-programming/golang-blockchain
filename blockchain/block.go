@@ -30,16 +30,13 @@ func Genesis() *Block {
 
 func (b *Block) Serialize() []byte {
 	var res bytes.Buffer
-
 	encoder := gob.NewEncoder(&res)
+
 	err := encoder.Encode(b)
 
-	if err != nil {
-		log.Panic(err)
-	}
+	Handle(err)
 
 	return res.Bytes()
-
 }
 
 func Deserialize(data []byte) *Block {
@@ -49,9 +46,13 @@ func Deserialize(data []byte) *Block {
 
 	err := decoder.Decode(&block)
 
+	Handle(err)
+
+	return &block
+}
+
+func Handle(err error) {
 	if err != nil {
 		log.Panic(err)
 	}
-
-	return &block
 }
