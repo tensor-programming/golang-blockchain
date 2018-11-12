@@ -1,16 +1,16 @@
-graph TB
-pr(private key) --> ec(ecdsa)
-ec --> pb(public key) 
+graph TD
+subgraph Genesis
+i1(Input) --> o1(Output)
+end
 
-pb --> s(sha256) 
-s --> r(ripemd160) 
-r --> k(public key hash)
-k --> s1(sha256)
-s1 --> s2(sha256)
-s2 --> e(4 bytes)
-e --> c
-c(checksum)
-c --> b(base 58)
-k --> b
-v(version) --> b
-b --> a(address) 
+subgraph Block A
+i2(Input) --> o2(Output)
+o1 --> i2
+i2 --> o3(Unspent Output)
+end
+
+subgraph Block B
+i3(Input) --> o4(Unspent  Output)
+o2 --> i3
+i3 --> o5(Unspent Output)
+end
