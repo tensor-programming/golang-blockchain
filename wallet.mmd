@@ -1,16 +1,22 @@
 graph TD
-subgraph Genesis
-i1(Input) --> o1(Output)
-end
 
-subgraph Block A
-i2(Input) --> o2(Output)
-o1 --> i2
-i2 --> o3(Unspent Output)
-end
+subgraph Merkle Tree
+a(Merkle Root) --> b
+a --> c(Sha256 Branch A + B) 
+c --> d(Branch A: sha256 tx1)
+c --> e(Branch B: sha256 tx2)
+b(Sha256 Branch C + D)  --> f(Branch C: sha256 tx3)
+b --> g(Branch D: sha256 tx4)
 
-subgraph Block B
-i3(Input) --> o4(Unspent  Output)
-o2 --> i3
-i3 --> o5(Unspent Output)
+end
+d --> tx1
+e --> tx2
+f --> tx3
+g --> tx4
+
+subgraph Serialized Transactions
+tx1(Transaction One) 
+tx2(Transaction Two)  
+tx3(Transaction Three)  
+tx4(Transaction Four)  
 end
