@@ -22,3 +22,5 @@ golang.org/x/crypto v0.0.0-20181030102418-4d3f4d9ffa16 h1:y6ce7gCWtnH+m3dCjzQ1PC
 golang.org/x/crypto v0.0.0-20181030102418-4d3f4d9ffa16/go.mod h1:6SG95UA2DQfeDnfUPMdvaQW0Q7yPrPDi9nlGo2tz2b4=
 golang.org/x/net v0.0.0-20181023162649-9b4f9f5ad519 h1:x6rhz8Y9CjbgQkccRGmELH6K+LJj7tOoh3XWeC1yaQM=
 golang.org/x/net v0.0.0-20181023162649-9b4f9f5ad519/go.mod h1:mL1N/T3taQHkDXs73rZJwtUhF3w3ftmwwsq0BUmARs4=
+gopkg.in/vrecan/death.v3 v3.0.1 h1:qMzChssfxEvW9ckxucDyeLdvd/rhy4LBOyzN8oaFdEU=
+gopkg.in/vrecan/death.v3 v3.0.1/go.mod h1:Jy+S9sSCa4cKJF59FMiiDO5/bLCsOtHC8sK3doI1vQM=
