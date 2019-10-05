@@ -9,8 +9,8 @@ import (
 	"strconv"
 
 	"github.com/tensor-programming/golang-blockchain/blockchain"
-	"github.com/tensor-programming/golang-blockchain/wallet"
 	"github.com/tensor-programming/golang-blockchain/network"
+	"github.com/tensor-programming/golang-blockchain/wallet"
 )
 
 type CommandLine struct{}
@@ -40,9 +40,9 @@ func (cli *CommandLine) StartNode(nodeID, minerAddress string) {
 	if len(minerAddress) > 0 {
 		if wallet.ValidateAddress(minerAddress) {
 			fmt.Println("Mining is on. Address to receive rewards: ", minerAddress)
-			} else {
-				log.Panic("Wrong miner address!")
-			}
+		} else {
+			log.Panic("Wrong miner address!")
+		}
 	}
 	network.StartServer(nodeID, minerAddress)
 }
@@ -64,6 +64,7 @@ func (cli *CommandLine) listAddresses(nodeID string) {
 	for _, address := range addresses {
 		fmt.Println(address)
 	}
+
 }
 
 func (cli *CommandLine) createWallet(nodeID string) {
@@ -99,20 +100,20 @@ func (cli *CommandLine) printChain(nodeID string) {
 
 func (cli *CommandLine) createBlockChain(address, nodeID string) {
 	if !wallet.ValidateAddress(address) {
-		log.Panic("Address is not Valid")	
+		log.Panic("Address is not Valid")
 	}
 	chain := blockchain.InitBlockChain(address, nodeID)
 	defer chain.Database.Close()
 
 	UTXOSet := blockchain.UTXOSet{chain}
 	UTXOSet.Reindex()
-	
+
 	fmt.Println("Finished!")
 }
 
 func (cli *CommandLine) getBalance(address, nodeID string) {
 	if !wallet.ValidateAddress(address) {
-		log.Panic("Address is not Valid")	
+		log.Panic("Address is not Valid")
 	}
 	chain := blockchain.ContinueBlockChain(nodeID)
 	UTXOSet := blockchain.UTXOSet{chain}
@@ -120,7 +121,7 @@ func (cli *CommandLine) getBalance(address, nodeID string) {
 
 	balance := 0
 	pubKeyHash := wallet.Base58Decode([]byte(address))
-	pubKeyHash = pubKeyHash[1 : len(pubKeyHash) - 4]
+	pubKeyHash = pubKeyHash[1 : len(pubKeyHash)-4]
 	UTXOs := UTXOSet.FindUnspentTransactions(pubKeyHash)
 
 	for _, out := range UTXOs {
@@ -132,10 +133,10 @@ func (cli *CommandLine) getBalance(address, nodeID string) {
 
 func (cli *CommandLine) send(from, to string, amount int, nodeID string, mineNow bool) {
 	if !wallet.ValidateAddress(to) {
-		log.Panic("Address is not Valid")	
+		log.Panic("Address is not Valid")
 	}
 	if !wallet.ValidateAddress(from) {
-		log.Panic("Address is not Valid")	
+		log.Panic("Address is not Valid")
 	}
 	chain := blockchain.ContinueBlockChain(nodeID)
 	UTXOSet := blockchain.UTXOSet{chain}
@@ -157,7 +158,7 @@ func (cli *CommandLine) send(from, to string, amount int, nodeID string, mineNow
 		network.SendTx(network.KnownNodes[0], tx)
 		fmt.Println("send tx")
 	}
-	
+
 	fmt.Println("Success!")
 }
 
@@ -203,7 +204,7 @@ func (cli *CommandLine) Run() {
 		if err != nil {
 			log.Panic(err)
 		}
-	case "startnode": 
+	case "startnode":
 		err := startNodeCmd.Parse(os.Args[2:])
 		if err != nil {
 			log.Panic(err)
@@ -281,4 +282,3 @@ func (cli *CommandLine) Run() {
 		cli.StartNode(nodeID, *startNodeMiner)
 	}
 }
-
